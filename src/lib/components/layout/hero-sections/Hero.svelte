@@ -60,7 +60,7 @@
 		callsToAction = [cta],
 		centered = false,
 		...rest
-	}: Props = $props(); // Missing closing parenthesis - syntax error for testing
+	}: Props = $props();
 </script>
 
 <div class="bg-background" {...rest}>
