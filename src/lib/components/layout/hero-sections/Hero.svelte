@@ -60,7 +60,7 @@
 		callsToAction = [cta],
 		centered = false,
 		...rest
-	}: Props = $props() // Missing semicolon - syntax error for testing
+	}: Props = $props( // Missing closing parenthesis - syntax error for testing
 </script>
 
 <div class="bg-background" {...rest}>
