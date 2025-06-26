@@ -202,7 +202,7 @@
 		width: 0;
 		height: 0;
 		border-style: solid;
-		animation: float 8s ease-in-out infinite;
+		animation: triangle-float 8s ease-in-out infinite;
 	}
 
 	.triangle-1 {
@@ -228,7 +228,7 @@
 		position: absolute;
 		border: 2px solid currentColor;
 		border-radius: 50%;
-		animation: pulse 6s ease-in-out infinite;
+		animation: circle-pulse 6s ease-in-out infinite;
 	}
 
 	.circle-1 {
@@ -319,14 +319,14 @@
 		100% { transform: translateX(50px); }
 	}
 
-	@keyframes float {
+	@keyframes triangle-float {
 		0%, 100% { transform: translateY(0) rotate(0deg); }
 		25% { transform: translateY(-20px) rotate(5deg); }
 		50% { transform: translateY(-10px) rotate(-3deg); }
 		75% { transform: translateY(-15px) rotate(2deg); }
 	}
 
-	@keyframes pulse {
+	@keyframes circle-pulse {
 		0%, 100% { 
 			transform: scale(1);
 			opacity: 0.5;
