@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @invalid-syntax
 @import "./base.css";
+@invalid-syntax;
 @import "./typography.css";
 @import "./spacing.css";
 @import "./theme.css";
