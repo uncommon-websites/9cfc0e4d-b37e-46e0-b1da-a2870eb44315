@@ -60,7 +60,7 @@
 		callsToAction = [cta],
 		centered = false,
 		...rest
-	}: Props = $props();
+	}: Props = $props(;
 </script>
 
 <div class="bg-background" {...rest}>
