@@ -64,7 +64,8 @@
 </script>
 
 <div class="bg-background" {...rest}>
-	<header
+	<!-- test syntax here -->
+<header
 		class={[
 			"section-px container mx-auto grid items-end gap-16 gap-y-9 py-12 pt-24 text-balance",
 			centered ? "place-items-center text-center" : " xl:grid-cols-[1fr_auto]"
@@ -99,14 +100,12 @@
 						href={cta.href}
 						size="lg"
 						variant={index % 2 === 0 ? "primary" : "secondary"}
-						class="max-lg:hidden">{cta.label}</Button
-					>
+						class="max-lg:hidden">{cta.label}</Button>
 					<Button
 						href={cta.href}
 						size="md"
 						variant={index % 2 === 0 ? "primary" : "secondary"}
-						class="lg:hidden">{cta.label}</Button
-					>
+						class="lg:hidden">{cta.label}</Button>
 				{/each}
 			</div>
 		{/if}
