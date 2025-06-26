@@ -5,7 +5,7 @@
 	import SectionHeader from "$lib/components/layout/SectionHeader.svelte";
 	import Culture from "$lib/components/layout/Culture.svelte";
 	import Testimonials from "$lib/components/layout/Testimonials.svelte";
-	import SecondaryHero from "$lib/components/layout/hero-sections/SecondaryHero.svelte";
+	import Hero from "$lib/components/layout/hero-sections/Hero.svelte";
 	import Card from "$lib/components/ui/Card.svelte";
 	import JobList, { type JobOpening } from "./JobList.svelte";
 
@@ -190,10 +190,20 @@
 
 <!-- Hero Section -->
 
-<SecondaryHero
-	title="Join our team of innovators"
-	subtitle="We're looking for passionate people to help us build the future of digital experiences. Discover your next opportunity with us."
-	imageSrc="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+<Hero
+	title="Build together. Grow faster."
+	subtitle="At Figma, we're rethinking how teams create—from whiteboard to product launch. Join a place where collaboration sparks innovation, and individual impact drives collective progress."
+	imageSrc="/generated/image-a-diverse-group-of-creative-professional.webp"
+	callsToAction={[
+		{
+			href: "#openings",
+			label: "View open roles"
+		},
+		{
+			href: "#culture",
+			label: "Learn about our culture"
+		}
+	]}
 />
 
 <!-- Why Join Us Section -->
@@ -208,7 +218,9 @@
 </section>
 
 <!-- Culture Section -->
-<Culture {values} />
+<div id="culture">
+	<Culture {values} />
+</div>
 
 <Testimonials testimonials={employeeTestimonials} />
 
@@ -231,7 +243,7 @@
 	</div>
 </section>
 <!-- Current Openings Section -->
-<section class={GRADIENT_BG_CLASSES}>
+<section id="openings" class={GRADIENT_BG_CLASSES}>
 	<div class="section-px section-py container mx-auto grid w-full items-start lg:grid-cols-2">
 		<SectionHeader title="Current openings" subtitle="Find your perfect role" />
 

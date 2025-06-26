@@ -27,107 +27,129 @@
 />
 
 <Summary
-	generating
 	title="What we do"
-	text="Our technology delivers measurable results through secure, adaptable solutions that directly increase productivity and drive growth."
+	text="Figma brings design, development, and product together in one collaborative workspace. From initial ideas to shipped products, teams work in real-time to create, prototype, and build digital experiences that matter."
 />
 
 <Testimonials
-	generating
 	testimonials={[
 		{
-			name: "Jane Smith",
-			position: "CTO",
-			company: "Tech Innovations",
+			name: "Keiran Holt",
+			position: "VP of Product",
+			company: "Tracerock",
 			quote:
-				"Their cutting-edge automation boosted our productivity by 35%.\nThe intuitive interface reduced training time and improved team adoption.",
+				"Figma helps us collaborate across functions and ships more things, faster. We cut our sprint cycles from 3 weeks to 10 days by eliminating design-dev miscommunication.\nOur velocity increased 40% once everyone could work in the same space.",
 			image:
-				"https://images.unsplash.com/photo-1571513722275-4b41940f54b8?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				"/generated/image-a-professional-man-in-a-modern-office-se.webp"
 		},
 		{
-			name: "John Doe",
-			position: "Director of Operations",
-			company: "Global Solutions",
+			name: "Laila Etienne",
+			position: "Head of Product Design",
+			company: "VergeLoop",
 			quote:
-				"Their robust security protocols gave us confidence in handling sensitive data.\nThe 24/7 support team resolved issues within hours, not days.",
+				"We're finally designing and developing in sync. No more chasing down changes. This eliminated our biggest project risk—late-stage design revisions that used to cost us $50K per quarter.\nZero miscommunications means zero costly rebuilds.",
 			image:
-				"https://images.unsplash.com/photo-1600603405959-6d623e92445c?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				"/generated/image-a-professional-woman-in-a-collaborative-.webp"
 		},
 		{
-			name: "Sarah Johnson",
-			position: "Product Manager",
-			company: "Future Systems",
+			name: "Brenna Walsh",
+			position: "Product Director",
+			company: "FlowState",
 			quote:
-				"The scalable platform grew seamlessly with our business needs.\nTheir customization options allowed us to tailor solutions perfectly to our workflows.",
+				"Figma replaced six different tools and saved us $180K annually in licenses alone. Our team productivity jumped 35% when we consolidated everything into one platform.\nOnboarding new designers went from 2 weeks to 3 days.",
 			image:
-				"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				"/generated/image-a-professional-woman-in-an-office-enviro.webp"
 		}
 	]}
 />
 
 <Features
-	generating
-	title="Features"
-	subtitle="Some features"
+	title="Design, develop, and deliver—together"
+	subtitle="Figma brings your entire product team into one shared space"
 	features={[
 		{
-			title: "Streamlined Workflows",
+			title: "Work together in real time",
 			description:
-				"Automate repetitive tasks and connect systems to improve productivity with our industry-leading 87% time savings."
+				"Design, comment, and iterate live in the same file—no saving, uploading, or waiting around. Everyone stays in sync, no matter where they sit."
 		},
 		{
-			title: "Data Analysis",
+			title: "Bring design and development closer",
 			description:
-				"Extract meaningful insights from your data with powerful analytical tools backed by proprietary AI algorithms that are 3x more accurate than competitors."
+				"With a dedicated developer workspace, design specs, assets, and code-ready details are easy to find and always up to date—no miscommunications or extra handoffs."
 		},
 		{
-			title: "Secure Collaboration",
+			title: "Use AI to speed up busywork",
 			description:
-				"Work together seamlessly while maintaining strict data privacy standards with our zero-knowledge architecture and military-grade encryption."
+				"Skip the blank page. Figma's AI features help you generate layouts, flows, mockups, and even starter code—so you can move from idea to insight, faster."
+		},
+		{
+			title: "Continue work from anywhere",
+			description:
+				"No installs or hardware dependencies—open Figma from any browser, on any device, and pick up right where you left off."
+		},
+		{
+			title: "Design systems that scale",
+			description:
+				"Reduce duplication and stay consistent across teams by connecting to reusable components, shared styles, and company-wide design systems."
+		},
+		{
+			title: "Build and test interactive prototypes",
+			description:
+				"Visualize how a product should feel with fully interactive prototypes that you can present, share, and test—all without switching apps."
 		}
 	]}
 />
 
 <UseCases
-	generating
 	title="Use Cases"
 	subtitle="Real-world applications for your business needs"
 	useCases={[
 		{
-			title: "Streamlined Workflows",
-			description:
-				"Automate repetitive tasks and connect systems to improve productivity with our industry-leading 87% time savings.",
-			image:
-				"https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+			title: "Design cohesive user experiences",
+			description: "Create consistent interfaces across products with shared design systems. Teams reduce design debt and ship features 3x faster when everyone works from the same components.",
+			image: "/generated/image-a-group-of-ux-designers-gathered-around-.webp",
 			link: {
-				href: "/use-cases/workflows",
+				href: "/use-cases/design-systems",
 				label: "Learn more"
 			}
 		},
 		{
-			title: "Data Analysis",
-			description:
-				"Extract meaningful insights from your data with powerful analytical tools backed by proprietary AI algorithms that are 3x more accurate than competitors.",
-			image:
-				"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2488&q=80",
+			title: "Test ideas before you build",
+			description: "Validate concepts with interactive prototypes that feel real. Get stakeholder buy-in and user feedback early to avoid costly development changes later.",
+			image: "/generated/image-a-product-team-in-a-modern-office-space-.webp",
 			link: {
-				href: "/use-cases/data-analysis",
-				label: "Explore analytics"
+				href: "/use-cases/prototyping",
+				label: "Explore prototyping"
 			}
 		},
 		{
-			title: "Secure Collaboration",
-			description:
-				"Work together seamlessly while maintaining strict data privacy standards with our zero-knowledge architecture and military-grade encryption.",
-			image:
-				"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
+			title: "Bridge design and development",
+			description: "Eliminate handoff friction with specs, assets, and code snippets that stay in sync. Developers get everything they need without hunting down designers.",
+			image: "/generated/image-a-team-of-developers-working-together-in.webp",
 			link: {
-				href: "/use-cases/collaboration",
-				label: "See security features"
+				href: "/use-cases/dev-handoff",
+				label: "See dev features"
 			}
 		}
 	]}
 />
 
-<AboutTeaser generating />
-<CallToAction generating />
+<AboutTeaser />
+<CallToAction
+	title="Start faster. Ship smarter. Build together."
+	subtitle="Try Figma free"
+	description="The collaborative design platform built for teams to work faster—together. Create, prototype, and ship all in one place."
+	imageSrc="/generated/image-a-cheerful-ux-designer-woman-with-a-brig.webp"
+	callsToAction={[
+		{
+			href: "/get-started",
+			label: "Get started for free",
+			variant: "primary"
+		},
+		{
+			href: "/demo",
+			label: "Request demo",
+			variant: "secondary"
+		}
+	]}
+/>
