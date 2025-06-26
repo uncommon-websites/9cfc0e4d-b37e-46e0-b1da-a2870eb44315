@@ -72,30 +72,41 @@
 	];
 
 	onMount(() => {
+		let ticking = false;
+
 		const handleScroll = () => {
-			if (!sectionElement) return;
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					if (!sectionElement) return;
 
-			const rect = sectionElement.getBoundingClientRect();
-			const sectionHeight = rect.height;
-			const viewportHeight = window.innerHeight;
-			
-			// Calculate how far we've scrolled through the section
-			const scrollProgress = Math.max(0, Math.min(1, 
-				(viewportHeight - rect.top) / (sectionHeight + viewportHeight)
-			));
+					const rect = sectionElement.getBoundingClientRect();
+					const sectionHeight = rect.height;
+					const viewportHeight = window.innerHeight;
+					
+					// More precise scroll progress calculation
+					const scrollStart = -rect.top;
+					const scrollEnd = sectionHeight - viewportHeight;
+					const scrollProgress = Math.max(0, Math.min(1, scrollStart / scrollEnd));
 
-			// Determine which feature should be active based on scroll progress
-			const newIndex = Math.min(
-				features.length - 1,
-				Math.floor(scrollProgress * features.length)
-			);
+					// Determine which feature should be active based on scroll progress
+					const totalFeatures = features.length;
+					const segmentSize = 1 / totalFeatures;
+					const newIndex = Math.min(
+						totalFeatures - 1,
+						Math.floor(scrollProgress / segmentSize)
+					);
 
-			if (newIndex !== activeFeatureIndex) {
-				activeFeatureIndex = newIndex;
+					if (newIndex !== activeFeatureIndex) {
+						activeFeatureIndex = newIndex;
+					}
+
+					ticking = false;
+				});
+				ticking = true;
 			}
 		};
 
-		window.addEventListener('scroll', handleScroll);
+		window.addEventListener('scroll', handleScroll, { passive: true });
 		handleScroll(); // Initial call
 
 		return () => {
@@ -204,7 +215,7 @@ Usage:
 
 <style>
 	.sticky-features-section {
-		min-height: 300vh; /* Make it tall enough for sticky scrolling */
+		min-height: 400vh; /* Make it tall enough for sticky scrolling */
 		padding: 4rem 0;
 	}
 
@@ -217,15 +228,32 @@ Usage:
 
 	.features-list {
 		position: sticky;
-		top: 20vh;
+		top: 15vh;
 		height: fit-content;
+		z-index: 10;
 	}
 
 	.feature-item {
-		padding: 2rem 0;
-		opacity: 0.3;
-		transition: opacity 0.6s ease;
-		border-bottom: 1px solid hsl(var(--border));
+		padding: 2.5rem 0;
+		opacity: 0.25;
+		transform: translateY(20px);
+		transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+		border-bottom: 1px solid hsl(var(--border) / 0.1);
+		position: relative;
+	}
+
+	.feature-item::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 4px;
+		height: 100%;
+		background: linear-gradient(180deg, transparent, hsl(var(--primary)), transparent);
+		opacity: 0;
+		transform: scaleY(0);
+		transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		border-radius: 2px;
 	}
 
 	.feature-item:last-child {
@@ -234,15 +262,32 @@ Usage:
 
 	.feature-item.active {
 		opacity: 1;
+		transform: translateY(0);
+		background: linear-gradient(90deg, 
+			hsl(var(--primary) / 0.03) 0%, 
+			transparent 50%
+		);
+		border-radius: 12px;
+		padding-left: 1.5rem;
+	}
+
+	.feature-item.active::before {
+		opacity: 1;
+		transform: scaleY(1);
+	}
+
+	.feature-item.active h3 {
+		color: hsl(var(--primary));
 	}
 
 	.animation-container {
 		position: sticky;
-		top: 20vh;
-		height: 60vh;
+		top: 15vh;
+		height: 70vh;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		z-index: 5;
 	}
 
 	.animation-viewport {
@@ -251,6 +296,8 @@ Usage:
 		height: 100%;
 		max-width: 500px;
 		max-height: 500px;
+		will-change: transform;
+		backface-visibility: hidden;
 	}
 
 	.metaphor-animation {
@@ -260,15 +307,19 @@ Usage:
 		width: 100%;
 		height: 100%;
 		opacity: 0;
-		transition: opacity 0.8s ease;
+		transform: scale(0.9) translateY(20px);
+		transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		pointer-events: none;
 	}
 
 	.metaphor-animation.active {
 		opacity: 1;
+		transform: scale(1) translateY(0);
+		pointer-events: auto;
 	}
 
 	.metaphor-content {
@@ -281,10 +332,21 @@ Usage:
 		width: 300px;
 		height: 300px;
 		margin: 0 auto 2rem;
+		will-change: transform;
+		backface-visibility: hidden;
 	}
 
 	.metaphor-text {
 		margin-top: 2rem;
+		transition: all 0.6s ease;
+	}
+
+	.metaphor-animation.active .metaphor-text h4 {
+		color: hsl(var(--primary));
+	}
+
+	.metaphor-animation.active .metaphor-text p {
+		opacity: 0.9;
 	}
 
 	/* Streams Animation */
@@ -292,9 +354,15 @@ Usage:
 		position: absolute;
 		width: 4px;
 		height: 120px;
-		background: linear-gradient(180deg, transparent, hsl(var(--primary)), transparent);
+		background: linear-gradient(180deg, transparent, hsl(var(--primary) / 0.6), transparent);
 		border-radius: 2px;
 		animation: flow 3s ease-in-out infinite;
+		transition: all 0.6s ease;
+	}
+
+	.streams.active .stream {
+		background: linear-gradient(180deg, transparent, hsl(var(--primary)), transparent);
+		box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
 	}
 
 	.streams .stream-1 {
@@ -323,13 +391,29 @@ Usage:
 		width: 80px;
 		height: 80px;
 		border-radius: 50%;
-		background: radial-gradient(circle, hsl(var(--primary)), transparent);
+		background: radial-gradient(circle, hsl(var(--primary) / 0.4), transparent);
 		animation: pulse 2s ease-in-out infinite;
+		transition: all 0.6s ease;
+	}
+
+	.streams.active .convergence {
+		background: radial-gradient(circle, hsl(var(--primary) / 0.8), transparent);
+		box-shadow: 0 0 40px hsl(var(--primary) / 0.2);
 	}
 
 	@keyframes flow {
-		0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
-		50% { transform: translateY(20px) scale(1.1); opacity: 1; }
+		0%, 100% { 
+			transform: translateY(0) scale(1); 
+			opacity: 0.6; 
+		}
+		50% { 
+			transform: translateY(20px) scale(1.1); 
+			opacity: 1; 
+		}
+	}
+
+	.streams.active .stream {
+		animation-duration: 2s;
 	}
 
 	/* Bridge Animation */
@@ -341,6 +425,12 @@ Usage:
 		border-radius: 50%;
 		top: 50%;
 		transform: translateY(-50%);
+		transition: all 0.6s ease;
+	}
+
+	.bridge.active .island {
+		background: hsl(var(--primary) / 0.2);
+		box-shadow: 0 0 20px hsl(var(--primary) / 0.1);
 	}
 
 	.bridge .island-left {
@@ -358,10 +448,16 @@ Usage:
 		transform: translate(-50%, -50%);
 		width: 200px;
 		height: 100px;
-		border: 3px solid hsl(var(--primary));
+		border: 3px solid hsl(var(--primary) / 0.6);
 		border-bottom: none;
 		border-radius: 100px 100px 0 0;
 		animation: buildBridge 4s ease-in-out infinite;
+		transition: all 0.6s ease;
+	}
+
+	.bridge.active .bridge-arc {
+		border-color: hsl(var(--primary));
+		box-shadow: 0 0 30px hsl(var(--primary) / 0.2);
 	}
 
 	@keyframes buildBridge {
@@ -375,9 +471,15 @@ Usage:
 		position: absolute;
 		width: 8px;
 		height: 8px;
-		background: hsl(var(--primary));
+		background: hsl(var(--primary) / 0.6);
 		border-radius: 50%;
 		animation: twinkle 2s ease-in-out infinite;
+		transition: all 0.6s ease;
+	}
+
+	.constellation.active .star {
+		background: hsl(var(--primary));
+		box-shadow: 0 0 15px hsl(var(--primary) / 0.4);
 	}
 
 	.constellation .star-1 { top: 50px; left: 100px; animation-delay: 0s; }
@@ -389,8 +491,14 @@ Usage:
 	.constellation .connection-line {
 		position: absolute;
 		height: 2px;
-		background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+		background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent);
 		animation: drawLine 3s ease-in-out infinite;
+		transition: all 0.6s ease;
+	}
+
+	.constellation.active .connection-line {
+		background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+		box-shadow: 0 0 10px hsl(var(--primary) / 0.3);
 	}
 
 	.constellation .line-1 {
@@ -434,6 +542,7 @@ Usage:
 		background: hsl(var(--muted));
 		border-radius: 50px;
 		animation: float 6s ease-in-out infinite;
+		transition: all 0.6s ease;
 	}
 
 	.clouds .cloud::before,
@@ -442,6 +551,17 @@ Usage:
 		position: absolute;
 		background: hsl(var(--muted));
 		border-radius: 50px;
+		transition: all 0.6s ease;
+	}
+
+	.clouds.active .cloud {
+		background: hsl(var(--primary) / 0.15);
+		box-shadow: 0 0 25px hsl(var(--primary) / 0.1);
+	}
+
+	.clouds.active .cloud::before,
+	.clouds.active .cloud::after {
+		background: hsl(var(--primary) / 0.15);
 	}
 
 	.clouds .cloud-1 {
@@ -522,9 +642,15 @@ Usage:
 		position: absolute;
 		width: 12px;
 		height: 12px;
-		background: hsl(var(--primary));
+		background: hsl(var(--primary) / 0.6);
 		border-radius: 50%;
 		animation: crystallize 3s ease-in-out infinite;
+		transition: all 0.6s ease;
+	}
+
+	.crystal.active .crystal-node {
+		background: hsl(var(--primary));
+		box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
 	}
 
 	.crystal .node-1 { top: 80px; left: 80px; animation-delay: 0s; }
@@ -535,8 +661,14 @@ Usage:
 	.crystal .crystal-edge {
 		position: absolute;
 		height: 2px;
-		background: hsl(var(--primary));
+		background: hsl(var(--primary) / 0.6);
 		animation: growEdge 3s ease-in-out infinite;
+		transition: all 0.6s ease;
+	}
+
+	.crystal.active .crystal-edge {
+		background: hsl(var(--primary));
+		box-shadow: 0 0 15px hsl(var(--primary) / 0.3);
 	}
 
 	.crystal .edge-1 {
@@ -581,8 +713,14 @@ Usage:
 		transform: translate(-50%, -50%);
 		width: 100px;
 		height: 100px;
-		background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+		background: linear-gradient(45deg, hsl(var(--primary) / 0.6), hsl(var(--secondary) / 0.6));
 		animation: morph 4s ease-in-out infinite;
+		transition: all 0.6s ease;
+	}
+
+	.morph.active .morphing-shape {
+		background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+		box-shadow: 0 0 30px hsl(var(--primary) / 0.2);
 	}
 
 	@keyframes morph {
@@ -619,9 +757,18 @@ Usage:
 			position: static;
 		}
 
+		.feature-item {
+			padding: 1.5rem 0;
+		}
+
+		.feature-item.active {
+			padding-left: 1rem;
+		}
+
 		.animation-container {
 			position: static;
 			height: 400px;
+			top: auto;
 		}
 
 		.metaphor-visual {
@@ -631,11 +778,33 @@ Usage:
 
 		.sticky-features-section {
 			min-height: auto;
+			padding: 2rem 0;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.metaphor-visual {
+			width: 200px;
+			height: 200px;
+		}
+
+		.feature-item {
+			padding: 1rem 0;
 		}
 	}
 
 	@keyframes pulse {
-		0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
-		50% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+		0%, 100% { 
+			transform: translateX(-50%) scale(1); 
+			opacity: 0.6; 
+		}
+		50% { 
+			transform: translateX(-50%) scale(1.2); 
+			opacity: 1; 
+		}
+	}
+
+	.streams.active .convergence {
+		animation-duration: 1.5s;
 	}
 </style>
