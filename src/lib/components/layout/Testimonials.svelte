@@ -274,7 +274,7 @@
 		<div class="mt-8 flex justify-center gap-2">
 			{#each testimonials as _, index}
 				<button
-					class="size-3 rounded-full transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+					class="h-1 w-8 rounded-full transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
 					class:bg-primary-600={current === index}
 					class:bg-gray-300={current !== index}
 					class:dark:bg-gray-600={current !== index}
@@ -282,16 +282,6 @@
 					aria-label="Go to testimonial {index + 1}"
 				></button>
 			{/each}
-		</div>
-
-		<!-- Progress Bar -->
-		<div class="mt-4 mx-auto max-w-xs">
-			<div class="h-1 bg-gray-200 rounded-full dark:bg-gray-700">
-				<div
-					class="h-1 bg-primary-600 rounded-full transition-all duration-300 ease-out"
-					style="width: {((current + 1) / testimonials.length) * 100}%"
-				></div>
-			</div>
 		</div>
 	</div>
 </section>
