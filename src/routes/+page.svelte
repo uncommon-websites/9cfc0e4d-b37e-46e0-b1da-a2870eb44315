@@ -13,7 +13,6 @@
 <Hero
 	title="Create together. Build better."
 	subtitle="One space for design, prototyping, and development."
-	imageSrc="/generated/image-an-image-of-a-ux-designer-and-developer-.webp"
 	centered={false}
 />
 <LogoScroller 

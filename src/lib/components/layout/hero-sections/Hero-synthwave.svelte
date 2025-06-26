@@ -36,7 +36,10 @@
 	// Constants
 	import { cta } from "$lib/navigation";
 
-	// Remove image error handler since we're not using images
+	function handleImageError(e: Event) {
+		const target = e.currentTarget as HTMLImageElement;
+		target.src = "https://placehold.co/800x600/f8fafc/64748b?text=Hero+image";
+	}
 
 	// Types
 	type Props = {
@@ -84,7 +87,7 @@
 	</div>
 
 	<!-- Content -->
-<header
+	<header
 		class={[
 			"synthwave-content section-px container mx-auto grid items-center gap-16 gap-y-9 py-12 text-balance relative z-10",
 			centered ? "place-items-center text-center" : " xl:grid-cols-[1fr_auto]"
@@ -104,7 +107,6 @@
 					data-enter
 					class={[
 						"text-muted-foreground text-headline mx-auto block max-w-[45ch] transition duration-500 ease-out"
-						// isTitleComplete ? "opacity-100" : "translate-y-2 opacity-0 blur-sm"
 					]}
 				>
 					{subtitle}
@@ -129,12 +131,11 @@
 			</div>
 		{/if}
 	</header>
-
 </div>
 
 <style>
 	.synthwave-hero {
-		@apply bg-white relative overflow-hidden;
+		@apply bg-background relative overflow-hidden;
 		min-height: 100vh;
 		display: flex;
 		align-items: center;
