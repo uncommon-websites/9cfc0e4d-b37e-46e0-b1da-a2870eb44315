@@ -30,7 +30,7 @@
 </script>
 
 <SecondaryHero
-	title="Building great products, together."
+	title="Building great products, together bro."
 	subtitle="Where design meets collaboration"
 	imageSrc="/mockups/dark-screen-1750853573549.png"
 />
