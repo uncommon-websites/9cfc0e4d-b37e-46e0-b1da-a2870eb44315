@@ -62,23 +62,23 @@
 <div class="hero-container bg-background relative overflow-hidden" {...rest}>
 	<!-- Content -->
 	<header
-		class="hero-content section-px section-py relative z-10 container mx-auto grid items-center gap-16 gap-y-12 text-balance {centered ? 'place-items-center text-center' : 'xl:grid-cols-[1fr_1fr]'}"
+		class="hero-content section-px section-py relative z-10 container mx-auto grid items-center gap-12 lg:gap-16 text-balance {centered ? 'place-items-center text-center' : 'xl:grid-cols-[1fr_1fr]'}"
 		data-enter-container
 	>
-		<div class="grid gap-8 lg:gap-10" class:max-w-prose={centered}>
+		<div class="grid gap-6 lg:gap-8" class:max-w-prose={centered}>
 			<h1 class="text-display hero-title w-full" data-enter>
 				<span class="block"><AnimateText text={title} /></span>
 			</h1>
 
 			<p
 				data-enter
-				class="text-muted-foreground text-headline block max-w-[50ch] text-pretty transition duration-500 ease-out {centered ? 'mx-auto' : ''}"
+				class="text-muted-foreground text-headline block max-w-prose text-pretty transition duration-500 ease-out {centered ? 'mx-auto' : ''}"
 			>
 				{subtitle}
 			</p>
 
 			{#if callsToAction.length > 0}
-				<div class="flex flex-wrap gap-4" data-enter class:justify-center={centered}>
+				<div class="flex flex-wrap gap-3 lg:gap-4" data-enter class:justify-center={centered}>
 					{#each callsToAction as cta, index}
 						<Button
 							href={cta.href}
@@ -99,7 +99,7 @@
 
 		{#if !centered}
 			<div class="hero-notification-container" data-enter>
-				<div class="grid gap-4 max-w-sm lg:max-w-md">
+				<div class="grid gap-3 lg:gap-4 max-w-sm lg:max-w-md">
 					<Notification
 						title="Design review completed"
 						message="Your prototype has been approved by the team. Ready to move to development phase."
