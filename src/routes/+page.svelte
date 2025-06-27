@@ -13,7 +13,7 @@
 <Hero
 	title="Design, prototype, and build — together."
 	subtitle="Figma brings your entire team into one collaborative workspace for faster feedback, cleaner handoff, and better products."
-	centered={false}
+	centered={true}
 	callsToAction={[
 		{
 			href: "/get-started",

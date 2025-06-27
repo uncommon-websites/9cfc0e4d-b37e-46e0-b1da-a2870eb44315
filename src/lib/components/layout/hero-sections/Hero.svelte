@@ -62,23 +62,56 @@
 <div class="hero-container bg-background relative overflow-hidden" {...rest}>
 	<!-- Content -->
 	<header
-		class="hero-content section-px section-py relative z-10 container mx-auto grid items-center gap-12 lg:gap-16 text-balance {centered ? 'place-items-center text-center' : 'xl:grid-cols-[1fr_1fr]'}"
+		class="hero-content section-px section-py relative z-10 container mx-auto grid items-center gap-12 lg:gap-16 text-balance place-items-center text-center"
 		data-enter-container
 	>
-		<div class="grid gap-6 lg:gap-8" class:max-w-prose={centered}>
+		<!-- Notifications positioned above everything -->
+		<div class="hero-notification-container w-full flex justify-center" data-enter>
+			<div class="notification-stack max-w-sm lg:max-w-md">
+				<div class="notification-item notification-1">
+					<Notification
+						title="Design review completed"
+						message="Your prototype has been approved by the team. Ready to move to development phase."
+						type="success"
+						timestamp="2 minutes ago"
+						actionLabel="View details"
+					/>
+				</div>
+				<div class="notification-item notification-2">
+					<Notification
+						title="New comment on wireframe"
+						message="Sarah added feedback on the checkout flow. Review suggested changes before the next sprint."
+						type="info"
+						timestamp="5 minutes ago"
+						actionLabel="Reply"
+					/>
+				</div>
+				<div class="notification-item notification-3">
+					<Notification
+						title="Component library updated"
+						message="New button variants and form components are now available in your design system."
+						type="info"
+						timestamp="1 hour ago"
+						actionLabel="Explore"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<div class="grid gap-6 lg:gap-8 max-w-prose">
 			<h1 class="text-display hero-title w-full" data-enter>
 				<span class="block"><AnimateText text={title} /></span>
 			</h1>
 
 			<p
 				data-enter
-				class="text-muted-foreground text-headline block max-w-prose text-pretty transition duration-500 ease-out {centered ? 'mx-auto' : ''}"
+				class="text-muted-foreground text-headline block max-w-prose text-pretty transition duration-500 ease-out mx-auto"
 			>
 				{subtitle}
 			</p>
 
 			{#if callsToAction.length > 0}
-				<div class="flex flex-wrap gap-3 lg:gap-4" data-enter class:justify-center={centered}>
+				<div class="flex flex-wrap gap-3 lg:gap-4 justify-center" data-enter>
 					{#each callsToAction as cta, index}
 						<Button
 							href={cta.href}
@@ -96,47 +129,14 @@
 				</div>
 			{/if}
 		</div>
-
-		{#if !centered}
-			<div class="hero-notification-container" data-enter>
-				<div class="notification-stack max-w-sm lg:max-w-md">
-					<div class="notification-item notification-1">
-						<Notification
-							title="Design review completed"
-							message="Your prototype has been approved by the team. Ready to move to development phase."
-							type="success"
-							timestamp="2 minutes ago"
-							actionLabel="View details"
-						/>
-					</div>
-					<div class="notification-item notification-2">
-						<Notification
-							title="New comment on wireframe"
-							message="Sarah added feedback on the checkout flow. Review suggested changes before the next sprint."
-							type="info"
-							timestamp="5 minutes ago"
-							actionLabel="Reply"
-						/>
-					</div>
-					<div class="notification-item notification-3">
-						<Notification
-							title="Component library updated"
-							message="New button variants and form components are now available in your design system."
-							type="info"
-							timestamp="1 hour ago"
-							actionLabel="Explore"
-						/>
-					</div>
-				</div>
-			</div>
-		{/if}
 	</header>
 </div>
 
 <style>
 	.notification-stack {
 		position: relative;
-		height: 200px; /* Fixed height to contain stacked notifications */
+		height: 240px; /* Increased height for enhanced animations */
+		perspective: 1000px; /* Add 3D perspective */
 	}
 
 	.notification-item {
@@ -145,42 +145,84 @@
 		left: 0;
 		right: 0;
 		opacity: 0;
-		transform: translateY(20px);
-		transition: all 0.6s ease-in-out;
+		transform: translateY(30px) scale(0.85) rotateX(15deg);
+		transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+		transform-origin: center bottom;
 	}
 
 	.notification-1 {
-		animation: notificationLoop 9s infinite;
+		animation: enhancedNotificationLoop 12s infinite;
 		animation-delay: 0s;
+		z-index: 3;
 	}
 
 	.notification-2 {
-		animation: notificationLoop 9s infinite;
-		animation-delay: 3s;
+		animation: enhancedNotificationLoop 12s infinite;
+		animation-delay: 4s;
+		z-index: 2;
 	}
 
 	.notification-3 {
-		animation: notificationLoop 9s infinite;
-		animation-delay: 6s;
+		animation: enhancedNotificationLoop 12s infinite;
+		animation-delay: 8s;
+		z-index: 1;
 	}
 
-	@keyframes notificationLoop {
-		0%, 11.11% {
+	@keyframes enhancedNotificationLoop {
+		0%, 8.33% {
 			opacity: 0;
-			transform: translateY(20px);
+			transform: translateY(30px) scale(0.85) rotateX(15deg);
 		}
-		22.22%, 77.78% {
+		16.67%, 25% {
 			opacity: 1;
-			transform: translateY(0);
+			transform: translateY(0) scale(1) rotateX(0deg);
 		}
-		88.89%, 100% {
+		33.33%, 58.33% {
+			opacity: 1;
+			transform: translateY(0) scale(1) rotateX(0deg);
+		}
+		66.67%, 75% {
+			opacity: 0.7;
+			transform: translateY(-10px) scale(0.95) rotateX(-5deg);
+		}
+		83.33%, 100% {
 			opacity: 0;
-			transform: translateY(-20px);
+			transform: translateY(-40px) scale(0.8) rotateX(-15deg);
 		}
 	}
 
-	/* Pause animation on hover for better UX */
+	/* Enhanced hover effects */
 	.notification-stack:hover .notification-item {
 		animation-play-state: paused;
+		transform: translateY(0) scale(1.02) rotateX(0deg);
+		opacity: 1;
+	}
+
+	.notification-stack:hover .notification-1 {
+		transform: translateY(-5px) scale(1.02) rotateX(0deg);
+	}
+
+	.notification-stack:hover .notification-2 {
+		transform: translateY(0) scale(1) rotateX(0deg);
+		opacity: 0.8;
+	}
+
+	.notification-stack:hover .notification-3 {
+		transform: translateY(5px) scale(0.98) rotateX(0deg);
+		opacity: 0.6;
+	}
+
+	/* Add subtle floating animation to the entire stack */
+	.notification-stack {
+		animation: floatingStack 6s ease-in-out infinite;
+	}
+
+	@keyframes floatingStack {
+		0%, 100% {
+			transform: translateY(0px);
+		}
+		50% {
+			transform: translateY(-8px);
+		}
 	}
 </style>
