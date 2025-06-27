@@ -32,6 +32,7 @@
 	// Components
 	import AnimateText from "$lib/components/animation/AnimateText.svelte";
 	import Button from "$lib/components/ui/Button.svelte";
+	import Notification from "$lib/components/ui/Notification.svelte";
 
 	// Constants
 	import { cta } from "$lib/navigation";
@@ -61,10 +62,7 @@
 <div class="hero-container" {...rest}>
 	<!-- Content -->
 	<header
-		class={[
-			"hero-content section-px relative z-10 container mx-auto grid items-center gap-16 gap-y-12 py-20 text-balance",
-			centered ? "place-items-center text-center" : "xl:grid-cols-[1fr_1fr]"
-		]}
+		class="hero-content section-px relative z-10 container mx-auto grid items-center gap-16 gap-y-12 py-20 text-balance {centered ? 'place-items-center text-center' : 'xl:grid-cols-[1fr_1fr]'}"
 		data-enter-container
 	>
 		<div class="grid gap-8" class:max-w-prose={centered}>
@@ -74,10 +72,7 @@
 
 			<p
 				data-enter
-				class={[
-					"text-muted-foreground text-headline block max-w-[50ch] transition duration-500 ease-out",
-					centered ? "mx-auto" : ""
-				]}
+				class="text-muted-foreground text-headline block max-w-[50ch] transition duration-500 ease-out {centered ? 'mx-auto' : ''}"
 			>
 				{subtitle}
 			</p>
@@ -102,9 +97,31 @@
 			{/if}
 		</div>
 
-		{#if imageSrc && !centered}
-			<div class="hero-image-container" data-enter>
-				<img src={imageSrc} alt="Team collaboration" class="hero-image" loading="eager" />
+		{#if !centered}
+			<div class="hero-notification-container" data-enter>
+				<div class="grid gap-4 max-w-sm">
+					<Notification
+						title="Design review completed"
+						message="Your prototype has been approved by the team. Ready to move to development phase."
+						type="success"
+						timestamp="2 minutes ago"
+						actionLabel="View details"
+					/>
+					<Notification
+						title="New comment on wireframe"
+						message="Sarah added feedback on the checkout flow. Review suggested changes before the next sprint."
+						type="info"
+						timestamp="5 minutes ago"
+						actionLabel="Reply"
+					/>
+					<Notification
+						title="Component library updated"
+						message="New button variants and form components are now available in your design system."
+						type="info"
+						timestamp="1 hour ago"
+						actionLabel="Explore"
+					/>
+				</div>
 			</div>
 		{/if}
 	</header>

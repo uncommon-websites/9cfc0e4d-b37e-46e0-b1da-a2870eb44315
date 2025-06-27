@@ -13,7 +13,6 @@
 <Hero
 	title="Design, prototype, and build — together"
 	subtitle="Figma brings your entire team into one collaborative workspace for faster feedback, cleaner handoff, and better products."
-	imageSrc="/generated/image-a-diverse-design-team-collaborating-in-a.webp"
 	centered={false}
 	/>
 <LogoScroller 
