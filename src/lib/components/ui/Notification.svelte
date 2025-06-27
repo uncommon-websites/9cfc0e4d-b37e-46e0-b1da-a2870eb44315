@@ -30,36 +30,62 @@
 		error: '✕'
 	};
 
-	const typeColors = {
-		success: 'bg-green-50 border-green-200 text-green-800',
-		info: 'bg-blue-50 border-blue-200 text-blue-800',
-		warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
-		error: 'bg-red-50 border-red-200 text-red-800'
+	// Using design system colors instead of Tailwind classes
+	const getTypeStyles = (type: string) => {
+		switch (type) {
+			case 'success':
+				return {
+					background: 'color-mix(in oklch, var(--color-secondary-100), var(--color-background) 50%)',
+					border: 'var(--color-secondary-200)',
+					text: 'var(--color-secondary-900)',
+					iconBg: 'var(--color-secondary-200)',
+					iconText: 'var(--color-secondary-700)'
+				};
+			case 'warning':
+				return {
+					background: 'color-mix(in oklch, var(--color-primary-100), var(--color-background) 50%)',
+					border: 'var(--color-primary-200)',
+					text: 'var(--color-primary-900)',
+					iconBg: 'var(--color-primary-200)',
+					iconText: 'var(--color-primary-700)'
+				};
+			case 'error':
+				return {
+					background: 'color-mix(in oklch, var(--color-destructive), var(--color-background) 80%)',
+					border: 'color-mix(in oklch, var(--color-destructive), var(--color-background) 60%)',
+					text: 'var(--color-foreground)',
+					iconBg: 'color-mix(in oklch, var(--color-destructive), var(--color-background) 60%)',
+					iconText: 'var(--color-foreground)'
+				};
+			default: // info
+				return {
+					background: 'var(--color-card)',
+					border: 'var(--color-border)',
+					text: 'var(--color-card-foreground)',
+					iconBg: 'var(--color-accent)',
+					iconText: 'var(--color-accent-foreground)'
+				};
+		}
 	};
 
-	const iconColors = {
-		success: 'bg-green-100 text-green-600',
-		info: 'bg-blue-100 text-blue-600',
-		warning: 'bg-yellow-100 text-yellow-600',
-		error: 'bg-red-100 text-red-600'
-	};
+	$: typeStyles = getTypeStyles(type);
 </script>
 
-<div class="notification-card rounded-xl border p-6 shadow-sm transition-all duration-300 hover:shadow-md {typeColors[type]}">
-	<div class="flex items-start gap-4">
+<div class="notification-card border transition-all duration-300" style="border-radius: var(--radius-lg); padding: 1.5rem; background-color: {typeStyles.background}; border-color: {typeStyles.border}; color: {typeStyles.text};">
+	<div class="flex items-start" style="gap: 1rem;">
 		<!-- Icon -->
-		<div class="flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold {iconColors[type]}">
+		<div class="flex items-center justify-center text-sm font-semibold" style="height: 2.5rem; width: 2.5rem; border-radius: 50%; background-color: {typeStyles.iconBg}; color: {typeStyles.iconText};">
 			{icons[type]}
 		</div>
 
 		<!-- Content -->
 		<div class="flex-1 min-w-0">
-			<div class="flex items-start justify-between gap-4">
+			<div class="flex items-start justify-between" style="gap: 1rem;">
 				<div class="flex-1">
-					<h3 class="font-semibold text-sm leading-tight mb-1">
+					<h3 class="text-headline font-semibold" style="margin-bottom: 0.25rem;">
 						{title}
 					</h3>
-					<p class="text-sm opacity-80 leading-relaxed">
+					<p class="text-body" style="color: var(--color-muted-foreground);">
 						{message}
 					</p>
 				</div>
@@ -69,22 +95,23 @@
 						<img
 							src={avatarSrc}
 							alt="User avatar"
-							class="h-8 w-8 rounded-full object-cover ring-2 ring-white"
+							style="height: 2rem; width: 2rem; border-radius: 50%; object-fit: cover; border: 2px solid var(--color-background);"
 						/>
 					</div>
 				{/if}
 			</div>
 
 			<!-- Footer -->
-			<div class="flex items-center justify-between mt-4 pt-3 border-t border-current/10">
-				<span class="text-xs opacity-60">
+			<div class="flex items-center justify-between border-t" style="margin-top: 1rem; padding-top: 0.75rem; border-color: var(--color-border);">
+				<span class="text-footnote">
 					{timestamp}
 				</span>
 
 				{#if actionLabel && onAction}
 					<button
 						onclick={onAction}
-						class="text-xs font-medium hover:underline focus:outline-none focus:underline transition-all duration-200"
+						class="text-footnote font-medium hover:underline focus:outline-none focus:underline transition-all duration-200"
+						style="color: var(--color-primary);"
 					>
 						{actionLabel}
 					</button>
