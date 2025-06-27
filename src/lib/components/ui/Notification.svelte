@@ -68,7 +68,7 @@
 		}
 	};
 
-	$: typeStyles = getTypeStyles(type);
+	let typeStyles = $derived(getTypeStyles(type));
 </script>
 
 <div class="notification-card border transition-all duration-300" style="border-radius: var(--radius-lg); padding: 1.5rem; background-color: {typeStyles.background}; border-color: {typeStyles.border}; color: {typeStyles.text};">
