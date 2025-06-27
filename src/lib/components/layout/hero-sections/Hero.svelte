@@ -135,8 +135,22 @@
 <style>
 	.notification-stack {
 		position: relative;
-		height: 240px; /* Increased height for enhanced animations */
-		perspective: 1000px; /* Add 3D perspective */
+		/* Responsive height that adapts to screen size */
+		height: 180px;
+		perspective: 1000px;
+	}
+
+	/* Mobile adjustments */
+	@media (min-width: 640px) {
+		.notification-stack {
+			height: 200px;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.notification-stack {
+			height: 240px;
+		}
 	}
 
 	.notification-item {
@@ -145,9 +159,17 @@
 		left: 0;
 		right: 0;
 		opacity: 0;
-		transform: translateY(30px) scale(0.85) rotateX(15deg);
+		/* Responsive transform values */
+		transform: translateY(20px) scale(0.9) rotateX(10deg);
 		transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 		transform-origin: center bottom;
+	}
+
+	/* Desktop transform values */
+	@media (min-width: 1024px) {
+		.notification-item {
+			transform: translateY(30px) scale(0.85) rotateX(15deg);
+		}
 	}
 
 	.notification-1 {
@@ -168,10 +190,11 @@
 		z-index: 1;
 	}
 
+	/* Mobile-first keyframes with smaller movements */
 	@keyframes enhancedNotificationLoop {
 		0%, 8.33% {
 			opacity: 0;
-			transform: translateY(30px) scale(0.85) rotateX(15deg);
+			transform: translateY(20px) scale(0.9) rotateX(10deg);
 		}
 		16.67%, 25% {
 			opacity: 1;
@@ -183,23 +206,49 @@
 		}
 		66.67%, 75% {
 			opacity: 0.7;
-			transform: translateY(-10px) scale(0.95) rotateX(-5deg);
+			transform: translateY(-6px) scale(0.97) rotateX(-3deg);
 		}
 		83.33%, 100% {
 			opacity: 0;
-			transform: translateY(-40px) scale(0.8) rotateX(-15deg);
+			transform: translateY(-25px) scale(0.85) rotateX(-10deg);
 		}
 	}
 
-	/* Enhanced hover effects */
+	/* Desktop keyframes with larger movements */
+	@media (min-width: 1024px) {
+		@keyframes enhancedNotificationLoop {
+			0%, 8.33% {
+				opacity: 0;
+				transform: translateY(30px) scale(0.85) rotateX(15deg);
+			}
+			16.67%, 25% {
+				opacity: 1;
+				transform: translateY(0) scale(1) rotateX(0deg);
+			}
+			33.33%, 58.33% {
+				opacity: 1;
+				transform: translateY(0) scale(1) rotateX(0deg);
+			}
+			66.67%, 75% {
+				opacity: 0.7;
+				transform: translateY(-10px) scale(0.95) rotateX(-5deg);
+			}
+			83.33%, 100% {
+				opacity: 0;
+				transform: translateY(-40px) scale(0.8) rotateX(-15deg);
+			}
+		}
+	}
+
+	/* Responsive hover effects */
 	.notification-stack:hover .notification-item {
 		animation-play-state: paused;
-		transform: translateY(0) scale(1.02) rotateX(0deg);
+		transform: translateY(0) scale(1.01) rotateX(0deg);
 		opacity: 1;
 	}
 
 	.notification-stack:hover .notification-1 {
-		transform: translateY(-5px) scale(1.02) rotateX(0deg);
+		transform: translateY(-3px) scale(1.01) rotateX(0deg);
 	}
 
 	.notification-stack:hover .notification-2 {
@@ -208,11 +257,26 @@
 	}
 
 	.notification-stack:hover .notification-3 {
-		transform: translateY(5px) scale(0.98) rotateX(0deg);
+		transform: translateY(3px) scale(0.99) rotateX(0deg);
 		opacity: 0.6;
 	}
 
-	/* Add subtle floating animation to the entire stack */
+	/* Desktop hover effects */
+	@media (min-width: 1024px) {
+		.notification-stack:hover .notification-item {
+			transform: translateY(0) scale(1.02) rotateX(0deg);
+		}
+
+		.notification-stack:hover .notification-1 {
+			transform: translateY(-5px) scale(1.02) rotateX(0deg);
+		}
+
+		.notification-stack:hover .notification-3 {
+			transform: translateY(5px) scale(0.98) rotateX(0deg);
+		}
+	}
+
+	/* Responsive floating animation */
 	.notification-stack {
 		animation: floatingStack 6s ease-in-out infinite;
 	}
@@ -222,7 +286,19 @@
 			transform: translateY(0px);
 		}
 		50% {
-			transform: translateY(-8px);
+			transform: translateY(-4px);
+		}
+	}
+
+	/* Desktop floating with more movement */
+	@media (min-width: 1024px) {
+		@keyframes floatingStack {
+			0%, 100% {
+				transform: translateY(0px);
+			}
+			50% {
+				transform: translateY(-8px);
+			}
 		}
 	}
 </style>
