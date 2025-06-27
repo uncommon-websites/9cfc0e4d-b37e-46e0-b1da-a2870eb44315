@@ -59,7 +59,6 @@
 </script>
 
 <div class="hero-container" {...rest}>
-
 	<!-- Content -->
 	<header
 		class={[
@@ -105,83 +104,8 @@
 
 		{#if imageSrc && !centered}
 			<div class="hero-image-container" data-enter>
-				<img
-					src={imageSrc}
-					alt="Team collaboration"
-					class="hero-image"
-					loading="eager"
-				/>
+				<img src={imageSrc} alt="Team collaboration" class="hero-image" loading="eager" />
 			</div>
 		{/if}
 	</header>
 </div>
-
-<style>
-	.hero-container {
-		min-height: 100vh;
-		position: relative;
-		background: #ffffff;
-		display: flex;
-		align-items: center;
-	}
-
-	.hero-content {
-		position: relative;
-		z-index: 10;
-	}
-
-	.hero-title {
-		font-weight: 600;
-		line-height: 1.1;
-		letter-spacing: -0.02em;
-		color: #1e293b;
-	}
-
-	.hero-image-container {
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.hero-image {
-		width: 100%;
-		height: auto;
-		border-radius: 12px;
-		max-width: 600px;
-		border: 1px solid #e2e8f0;
-		position: relative;
-	}
-
-	/* Clean button styles - no animations */
-
-	/* Responsive adjustments */
-	@media (max-width: 1200px) {
-		.hero-content {
-			grid-template-columns: 1fr;
-			text-align: center;
-			gap: 12;
-		}
-		
-		.hero-image-container {
-			order: -1;
-			margin-bottom: 2rem;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.hero-container {
-			min-height: 90vh;
-		}
-		
-		.hero-content {
-			padding-top: 3rem;
-			padding-bottom: 3rem;
-			gap: 8;
-		}
-		
-		.hero-image {
-			border-radius: 12px;
-		}
-	}
-</style>
