@@ -1,6 +1,6 @@
 <!--
     @component
-    Bold hero banner with eye-catching text and strong call-to-action. NEVER use title case.
+    Clean, modern hero banner with compelling text and strong call-to-action. NEVER use title case.
 
     Usage:
     ```html
@@ -36,8 +36,6 @@
 	// Constants
 	import { cta } from "$lib/navigation";
 
-	// Remove image error handler since we're not using images
-
 	// Types
 	type Props = {
 		centered?: boolean;
@@ -60,84 +58,70 @@
 	}: Props = $props();
 </script>
 
-<div class="synthwave-hero" {...rest}>
-	<!-- Synthwave animated background -->
-	<div class="synthwave-bg">
-		<!-- Grid lines -->
-		<div class="grid-lines">
-			<div class="grid-horizontal"></div>
-			<div class="grid-vertical"></div>
-		</div>
-
-		<!-- Geometric shapes -->
-		<div class="geometric-shapes">
-			<div class="triangle triangle-1"></div>
-			<div class="triangle triangle-2"></div>
-			<div class="circle circle-1"></div>
-			<div class="circle circle-2"></div>
-			<div class="line line-1"></div>
-			<div class="line line-2"></div>
-		</div>
-
-		<!-- Divine Scanlines -->
-		<div class="scanlines"></div>
-		
-		<!-- Additional atmospheric effects -->
-		<div class="atmosphere-overlay"></div>
+<div class="hero-container" {...rest}>
+	<!-- Clean background with subtle gradient -->
+	<div class="hero-bg">
+		<div class="gradient-overlay"></div>
 	</div>
 
 	<!-- Content -->
 	<header
 		class={[
-			"synthwave-content section-px relative z-10 container mx-auto grid items-center gap-16 gap-y-9 py-12 text-balance",
-			centered ? "place-items-center text-center" : " xl:grid-cols-[1fr_auto]"
+			"hero-content section-px relative z-10 container mx-auto grid items-center gap-16 gap-y-12 py-20 text-balance",
+			centered ? "place-items-center text-center" : "xl:grid-cols-[1fr_1fr]"
 		]}
 		data-enter-container
 	>
-		<div class="grid gap-6" class:max-w-prose={centered}>
-			<h1 class="text-display synthwave-title w-full" data-enter>
+		<div class="grid gap-8" class:max-w-prose={centered}>
+			<h1 class="text-display hero-title w-full" data-enter>
 				<span class="block"><AnimateText text={title} /></span>
-				{#if !centered}
-					<span class="text-emphasis-dim block"><AnimateText text={subtitle} /></span>
-				{/if}
 			</h1>
 
-			{#if centered}
-				<p
-					data-enter
-					class={[
-						"text-muted-foreground text-headline mx-auto block max-w-[45ch] transition duration-500 ease-out"
-						// isTitleComplete ? "opacity-100" : "translate-y-2 opacity-0 blur-sm"
-					]}
-				>
-					{subtitle}
-				</p>
+			<p
+				data-enter
+				class={[
+					"text-muted-foreground text-headline block max-w-[50ch] transition duration-500 ease-out",
+					centered ? "mx-auto" : ""
+				]}
+			>
+				{subtitle}
+			</p>
+
+			{#if callsToAction.length > 0}
+				<div class="flex gap-4" data-enter class:justify-center={centered}>
+					{#each callsToAction as cta, index}
+						<Button
+							href={cta.href}
+							size="lg"
+							variant={index % 2 === 0 ? "primary" : "secondary"}
+							class="hero-button max-lg:hidden">{cta.label}</Button
+						>
+						<Button
+							href={cta.href}
+							size="md"
+							variant={index % 2 === 0 ? "primary" : "secondary"}
+							class="hero-button lg:hidden">{cta.label}</Button
+						>
+					{/each}
+				</div>
 			{/if}
 		</div>
 
-		{#if callsToAction.length > 0}
-			<div class="flex gap-4" data-enter>
-				{#each callsToAction as cta, index}
-					<Button
-						href={cta.href}
-						size="lg"
-						variant={index % 2 === 0 ? "primary" : "secondary"}
-						class="synthwave-button max-lg:hidden">{cta.label}</Button
-					>
-					<Button
-						href={cta.href}
-						size="md"
-						variant={index % 2 === 0 ? "primary" : "secondary"}
-						class="synthwave-button lg:hidden">{cta.label}</Button
-					>
-				{/each}
+		{#if imageSrc && !centered}
+			<div class="hero-image-container" data-enter>
+				<img
+					src={imageSrc}
+					alt="Team collaboration"
+					class="hero-image"
+					loading="eager"
+				/>
 			</div>
 		{/if}
 	</header>
 </div>
 
 <style>
-	.synthwave-hero {
+	.hero-container {
 		min-height: 100vh;
 		position: relative;
 		overflow: hidden;
@@ -146,20 +130,7 @@
 		align-items: center;
 	}
 
-	.synthwave-bg {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		opacity: 0.15;
-		background: 
-			radial-gradient(ellipse at top, rgba(59, 130, 246, 0.02) 0%, transparent 50%),
-			radial-gradient(ellipse at bottom, rgba(147, 51, 234, 0.02) 0%, transparent 50%);
-	}
-
-	/* Grid Lines */
-	.grid-lines {
+	.hero-bg {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -167,407 +138,83 @@
 		height: 100%;
 	}
 
-	.grid-horizontal {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-image: repeating-linear-gradient(
-			0deg,
-			transparent,
-			transparent 49px,
-			currentColor 50px
-		);
-		animation: grid-move-horizontal 20s linear infinite;
-	}
-
-	.grid-vertical {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background-image: repeating-linear-gradient(
-			90deg,
-			transparent,
-			transparent 49px,
-			currentColor 50px
-		);
-		animation: grid-move-vertical 15s linear infinite;
-	}
-
-	/* Geometric Shapes */
-	.geometric-shapes {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-
-	.triangle {
-		position: absolute;
-		width: 0;
-		height: 0;
-		border-style: solid;
-		animation: triangle-float 8s ease-in-out infinite;
-	}
-
-	.triangle-1 {
-		top: 20%;
-		left: 10%;
-		border-left: 30px solid transparent;
-		border-right: 30px solid transparent;
-		border-bottom: 52px solid currentColor;
-		animation-delay: 0s;
-	}
-
-	.triangle-2 {
-		top: 60%;
-		right: 15%;
-		border-left: 20px solid transparent;
-		border-right: 20px solid transparent;
-		border-bottom: 35px solid currentColor;
-		animation-delay: 4s;
-		transform: rotate(180deg);
-	}
-
-	.circle {
-		position: absolute;
-		border: 2px solid currentColor;
-		border-radius: 50%;
-		animation: circle-pulse 6s ease-in-out infinite;
-	}
-
-	.circle-1 {
-		top: 30%;
-		right: 20%;
-		width: 60px;
-		height: 60px;
-		animation-delay: 1s;
-	}
-
-	.circle-2 {
-		bottom: 25%;
-		left: 20%;
-		width: 40px;
-		height: 40px;
-		animation-delay: 3s;
-	}
-
-	.line {
-		position: absolute;
-		background: currentColor;
-		animation: line-grow 10s ease-in-out infinite;
-	}
-
-	.line-1 {
-		top: 40%;
-		left: 5%;
-		width: 2px;
-		height: 100px;
-		animation-delay: 2s;
-	}
-
-	.line-2 {
-		bottom: 30%;
-		right: 10%;
-		width: 80px;
-		height: 2px;
-		animation-delay: 5s;
-	}
-
-	/* Scanlines - Enhanced Divine Edition */
-	.scanlines {
+	.gradient-overlay {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
 		background: 
-			repeating-linear-gradient(
-				0deg,
-				transparent,
-				transparent 1px,
-				rgba(59, 130, 246, 0.15) 1px,
-				rgba(59, 130, 246, 0.15) 2px,
-				transparent 2px,
-				transparent 3px,
-				rgba(147, 51, 234, 0.1) 3px,
-				rgba(147, 51, 234, 0.1) 4px
-			),
-			repeating-linear-gradient(
-				90deg,
-				transparent,
-				transparent 8px,
-				rgba(236, 72, 153, 0.05) 8px,
-				rgba(236, 72, 153, 0.05) 9px
-			);
-		opacity: 0.8;
-		animation: scanlines-divine 4s ease-in-out infinite, scanlines-shimmer 8s linear infinite;
-		mix-blend-mode: overlay;
-		filter: blur(0.3px);
+			radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+			radial-gradient(ellipse at bottom right, rgba(147, 51, 234, 0.02) 0%, transparent 50%);
+		opacity: 0.6;
 	}
 
-	.scanlines::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 20px,
-			rgba(34, 197, 94, 0.03) 20px,
-			rgba(34, 197, 94, 0.03) 21px
-		);
-		animation: scanlines-diagonal 12s linear infinite reverse;
-	}
-
-	.scanlines::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: radial-gradient(
-			circle at 30% 70%, 
-			rgba(59, 130, 246, 0.08) 0%, 
-			transparent 50%
-		),
-		radial-gradient(
-			circle at 70% 30%, 
-			rgba(147, 51, 234, 0.06) 0%, 
-			transparent 50%
-		);
-		animation: scanlines-glow 6s ease-in-out infinite alternate;
-	}
-
-	/* Content Styling */
-	.synthwave-content {
+	.hero-content {
 		position: relative;
 		z-index: 10;
 	}
 
-	.synthwave-title {
-		text-shadow: 0 0 10px currentColor;
-		animation: title-glow 4s ease-in-out infinite alternate;
+	.hero-title {
+		font-weight: 600;
+		line-height: 1.1;
+		letter-spacing: -0.02em;
 	}
 
-	:global(.synthwave-button) {
-		box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-		transition: all 0.3s ease;
+	.hero-image-container {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	:global(.synthwave-button:hover) {
-		box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-		transform: translateY(-2px);
-	}
-
-	/* Animations */
-	@keyframes grid-move-horizontal {
-		0% {
-			transform: translateY(0);
-		}
-		100% {
-			transform: translateY(50px);
-		}
-	}
-
-	@keyframes grid-move-vertical {
-		0% {
-			transform: translateX(0);
-		}
-		100% {
-			transform: translateX(50px);
-		}
-	}
-
-	@keyframes triangle-float {
-		0%,
-		100% {
-			transform: translateY(0) rotate(0deg);
-		}
-		25% {
-			transform: translateY(-20px) rotate(5deg);
-		}
-		50% {
-			transform: translateY(-10px) rotate(-3deg);
-		}
-		75% {
-			transform: translateY(-15px) rotate(2deg);
-		}
-	}
-
-	@keyframes circle-pulse {
-		0%,
-		100% {
-			transform: scale(1);
-			opacity: 0.5;
-		}
-		50% {
-			transform: scale(1.2);
-			opacity: 0.8;
-		}
-	}
-
-	@keyframes line-grow {
-		0%,
-		100% {
-			transform: scale(1);
-			opacity: 0.3;
-		}
-		50% {
-			transform: scale(1.5);
-			opacity: 0.7;
-		}
-	}
-
-	@keyframes scanlines-divine {
-		0%, 100% {
-			transform: translateY(0) scale(1);
-			opacity: 0.8;
-		}
-		25% {
-			transform: translateY(-2px) scale(1.002);
-			opacity: 0.9;
-		}
-		50% {
-			transform: translateY(1px) scale(0.998);
-			opacity: 0.7;
-		}
-		75% {
-			transform: translateY(-1px) scale(1.001);
-			opacity: 0.85;
-		}
-	}
-
-	@keyframes scanlines-shimmer {
-		0% {
-			filter: blur(0.3px) hue-rotate(0deg);
-		}
-		25% {
-			filter: blur(0.2px) hue-rotate(90deg);
-		}
-		50% {
-			filter: blur(0.4px) hue-rotate(180deg);
-		}
-		75% {
-			filter: blur(0.1px) hue-rotate(270deg);
-		}
-		100% {
-			filter: blur(0.3px) hue-rotate(360deg);
-		}
-	}
-
-	@keyframes scanlines-diagonal {
-		0% {
-			transform: translateX(0) translateY(0);
-		}
-		100% {
-			transform: translateX(21px) translateY(21px);
-		}
-	}
-
-	@keyframes scanlines-glow {
-		0% {
-			opacity: 0.3;
-			transform: scale(1) rotate(0deg);
-		}
-		50% {
-			opacity: 0.6;
-			transform: scale(1.05) rotate(180deg);
-		}
-		100% {
-			opacity: 0.4;
-			transform: scale(0.95) rotate(360deg);
-		}
-	}
-
-	@keyframes title-glow {
-		0% {
-			text-shadow: 0 0 10px currentColor;
-		}
-		100% {
-			text-shadow:
-				0 0 20px currentColor,
-				0 0 30px currentColor;
-		}
-	}
-
-	/* Atmospheric overlay for extra depth */
-	.atmosphere-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
+	.hero-image {
 		width: 100%;
-		height: 100%;
-		background: 
-			linear-gradient(
-				135deg,
-				rgba(59, 130, 246, 0.02) 0%,
-				transparent 25%,
-				rgba(147, 51, 234, 0.01) 50%,
-				transparent 75%,
-				rgba(236, 72, 153, 0.02) 100%
-			);
-		animation: atmosphere-drift 20s ease-in-out infinite;
-		pointer-events: none;
+		height: auto;
+		border-radius: 16px;
+		transition: transform 0.3s ease;
+		max-width: 600px;
 	}
 
-	@keyframes atmosphere-drift {
-		0%, 100% {
-			transform: translateX(0) translateY(0) rotate(0deg);
-			opacity: 0.5;
-		}
-		25% {
-			transform: translateX(10px) translateY(-5px) rotate(1deg);
-			opacity: 0.7;
-		}
-		50% {
-			transform: translateX(-5px) translateY(8px) rotate(-0.5deg);
-			opacity: 0.6;
-		}
-		75% {
-			transform: translateX(8px) translateY(-3px) rotate(0.8deg);
-			opacity: 0.8;
-		}
+	.hero-image:hover {
+		transform: scale(1.02);
+	}
+
+	:global(.hero-button) {
+		transition: all 0.2s ease;
+	}
+
+	:global(.hero-button:hover) {
+		transform: translateY(-1px);
 	}
 
 	/* Responsive adjustments */
+	@media (max-width: 1200px) {
+		.hero-content {
+			grid-template-columns: 1fr;
+			text-align: center;
+			gap: 12;
+		}
+		
+		.hero-image-container {
+			order: -1;
+			margin-bottom: 2rem;
+		}
+	}
+
 	@media (max-width: 768px) {
-		.triangle-1 {
-			border-left-width: 20px;
-			border-right-width: 20px;
-			border-bottom-width: 35px;
+		.hero-container {
+			min-height: 90vh;
 		}
-
-		.triangle-2 {
-			border-left-width: 15px;
-			border-right-width: 15px;
-			border-bottom-width: 26px;
+		
+		.hero-content {
+			padding-top: 3rem;
+			padding-bottom: 3rem;
+			gap: 8;
 		}
-
-		.circle-1 {
-			width: 40px;
-			height: 40px;
-		}
-
-		.circle-2 {
-			width: 30px;
-			height: 30px;
-		}
-
-		.line-1 {
-			height: 60px;
-		}
-
-		.line-2 {
-			width: 50px;
+		
+		.hero-image {
+			border-radius: 12px;
 		}
 	}
 </style>
