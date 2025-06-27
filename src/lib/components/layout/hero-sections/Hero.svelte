@@ -99,30 +99,88 @@
 
 		{#if !centered}
 			<div class="hero-notification-container" data-enter>
-				<div class="grid gap-3 lg:gap-4 max-w-sm lg:max-w-md">
-					<Notification
-						title="Design review completed"
-						message="Your prototype has been approved by the team. Ready to move to development phase."
-						type="success"
-						timestamp="2 minutes ago"
-						actionLabel="View details"
-					/>
-					<Notification
-						title="New comment on wireframe"
-						message="Sarah added feedback on the checkout flow. Review suggested changes before the next sprint."
-						type="info"
-						timestamp="5 minutes ago"
-						actionLabel="Reply"
-					/>
-					<Notification
-						title="Component library updated"
-						message="New button variants and form components are now available in your design system."
-						type="info"
-						timestamp="1 hour ago"
-						actionLabel="Explore"
-					/>
+				<div class="notification-stack max-w-sm lg:max-w-md">
+					<div class="notification-item notification-1">
+						<Notification
+							title="Design review completed"
+							message="Your prototype has been approved by the team. Ready to move to development phase."
+							type="success"
+							timestamp="2 minutes ago"
+							actionLabel="View details"
+						/>
+					</div>
+					<div class="notification-item notification-2">
+						<Notification
+							title="New comment on wireframe"
+							message="Sarah added feedback on the checkout flow. Review suggested changes before the next sprint."
+							type="info"
+							timestamp="5 minutes ago"
+							actionLabel="Reply"
+						/>
+					</div>
+					<div class="notification-item notification-3">
+						<Notification
+							title="Component library updated"
+							message="New button variants and form components are now available in your design system."
+							type="info"
+							timestamp="1 hour ago"
+							actionLabel="Explore"
+						/>
+					</div>
 				</div>
 			</div>
 		{/if}
 	</header>
 </div>
+
+<style>
+	.notification-stack {
+		position: relative;
+		height: 200px; /* Fixed height to contain stacked notifications */
+	}
+
+	.notification-item {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		opacity: 0;
+		transform: translateY(20px);
+		transition: all 0.6s ease-in-out;
+	}
+
+	.notification-1 {
+		animation: notificationLoop 9s infinite;
+		animation-delay: 0s;
+	}
+
+	.notification-2 {
+		animation: notificationLoop 9s infinite;
+		animation-delay: 3s;
+	}
+
+	.notification-3 {
+		animation: notificationLoop 9s infinite;
+		animation-delay: 6s;
+	}
+
+	@keyframes notificationLoop {
+		0%, 11.11% {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		22.22%, 77.78% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		88.89%, 100% {
+			opacity: 0;
+			transform: translateY(-20px);
+		}
+	}
+
+	/* Pause animation on hover for better UX */
+	.notification-stack:hover .notification-item {
+		animation-play-state: paused;
+	}
+</style>
