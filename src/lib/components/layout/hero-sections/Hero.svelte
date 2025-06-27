@@ -79,8 +79,11 @@
 			<div class="line line-2"></div>
 		</div>
 
-		<!-- Scanlines -->
+		<!-- Divine Scanlines -->
 		<div class="scanlines"></div>
+		
+		<!-- Additional atmospheric effects -->
+		<div class="atmosphere-overlay"></div>
 	</div>
 
 	<!-- Content -->
@@ -149,7 +152,10 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		opacity: 0.1;
+		opacity: 0.15;
+		background: 
+			radial-gradient(ellipse at top, rgba(59, 130, 246, 0.02) 0%, transparent 50%),
+			radial-gradient(ellipse at bottom, rgba(147, 51, 234, 0.02) 0%, transparent 50%);
 	}
 
 	/* Grid Lines */
@@ -272,22 +278,73 @@
 		animation-delay: 5s;
 	}
 
-	/* Scanlines */
+	/* Scanlines - Enhanced Divine Edition */
 	.scanlines {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
+		background: 
+			repeating-linear-gradient(
+				0deg,
+				transparent,
+				transparent 1px,
+				rgba(59, 130, 246, 0.15) 1px,
+				rgba(59, 130, 246, 0.15) 2px,
+				transparent 2px,
+				transparent 3px,
+				rgba(147, 51, 234, 0.1) 3px,
+				rgba(147, 51, 234, 0.1) 4px
+			),
+			repeating-linear-gradient(
+				90deg,
+				transparent,
+				transparent 8px,
+				rgba(236, 72, 153, 0.05) 8px,
+				rgba(236, 72, 153, 0.05) 9px
+			);
+		opacity: 0.8;
+		animation: scanlines-divine 4s ease-in-out infinite, scanlines-shimmer 8s linear infinite;
+		mix-blend-mode: overlay;
+		filter: blur(0.3px);
+	}
+
+	.scanlines::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
 		background: repeating-linear-gradient(
-			0deg,
+			45deg,
 			transparent,
-			transparent 2px,
-			currentColor 2px,
-			currentColor 4px
+			transparent 20px,
+			rgba(34, 197, 94, 0.03) 20px,
+			rgba(34, 197, 94, 0.03) 21px
 		);
-		opacity: 0.03;
-		animation: scanlines-move 3s linear infinite;
+		animation: scanlines-diagonal 12s linear infinite reverse;
+	}
+
+	.scanlines::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(
+			circle at 30% 70%, 
+			rgba(59, 130, 246, 0.08) 0%, 
+			transparent 50%
+		),
+		radial-gradient(
+			circle at 70% 30%, 
+			rgba(147, 51, 234, 0.06) 0%, 
+			transparent 50%
+		);
+		animation: scanlines-glow 6s ease-in-out infinite alternate;
 	}
 
 	/* Content Styling */
@@ -370,12 +427,64 @@
 		}
 	}
 
-	@keyframes scanlines-move {
+	@keyframes scanlines-divine {
+		0%, 100% {
+			transform: translateY(0) scale(1);
+			opacity: 0.8;
+		}
+		25% {
+			transform: translateY(-2px) scale(1.002);
+			opacity: 0.9;
+		}
+		50% {
+			transform: translateY(1px) scale(0.998);
+			opacity: 0.7;
+		}
+		75% {
+			transform: translateY(-1px) scale(1.001);
+			opacity: 0.85;
+		}
+	}
+
+	@keyframes scanlines-shimmer {
 		0% {
-			transform: translateY(0);
+			filter: blur(0.3px) hue-rotate(0deg);
+		}
+		25% {
+			filter: blur(0.2px) hue-rotate(90deg);
+		}
+		50% {
+			filter: blur(0.4px) hue-rotate(180deg);
+		}
+		75% {
+			filter: blur(0.1px) hue-rotate(270deg);
 		}
 		100% {
-			transform: translateY(4px);
+			filter: blur(0.3px) hue-rotate(360deg);
+		}
+	}
+
+	@keyframes scanlines-diagonal {
+		0% {
+			transform: translateX(0) translateY(0);
+		}
+		100% {
+			transform: translateX(21px) translateY(21px);
+		}
+	}
+
+	@keyframes scanlines-glow {
+		0% {
+			opacity: 0.3;
+			transform: scale(1) rotate(0deg);
+		}
+		50% {
+			opacity: 0.6;
+			transform: scale(1.05) rotate(180deg);
+		}
+		100% {
+			opacity: 0.4;
+			transform: scale(0.95) rotate(360deg);
 		}
 	}
 
@@ -387,6 +496,45 @@
 			text-shadow:
 				0 0 20px currentColor,
 				0 0 30px currentColor;
+		}
+	}
+
+	/* Atmospheric overlay for extra depth */
+	.atmosphere-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: 
+			linear-gradient(
+				135deg,
+				rgba(59, 130, 246, 0.02) 0%,
+				transparent 25%,
+				rgba(147, 51, 234, 0.01) 50%,
+				transparent 75%,
+				rgba(236, 72, 153, 0.02) 100%
+			);
+		animation: atmosphere-drift 20s ease-in-out infinite;
+		pointer-events: none;
+	}
+
+	@keyframes atmosphere-drift {
+		0%, 100% {
+			transform: translateX(0) translateY(0) rotate(0deg);
+			opacity: 0.5;
+		}
+		25% {
+			transform: translateX(10px) translateY(-5px) rotate(1deg);
+			opacity: 0.7;
+		}
+		50% {
+			transform: translateX(-5px) translateY(8px) rotate(-0.5deg);
+			opacity: 0.6;
+		}
+		75% {
+			transform: translateX(8px) translateY(-3px) rotate(0.8deg);
+			opacity: 0.8;
 		}
 	}
 
