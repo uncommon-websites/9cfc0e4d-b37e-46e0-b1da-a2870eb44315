@@ -68,7 +68,7 @@
 			<div class="grid-horizontal"></div>
 			<div class="grid-vertical"></div>
 		</div>
-		
+
 		<!-- Geometric shapes -->
 		<div class="geometric-shapes">
 			<div class="triangle triangle-1"></div>
@@ -78,21 +78,21 @@
 			<div class="line line-1"></div>
 			<div class="line line-2"></div>
 		</div>
-		
+
 		<!-- Scanlines -->
 		<div class="scanlines"></div>
 	</div>
 
 	<!-- Content -->
-<header
+	<header
 		class={[
-			"synthwave-content section-px container mx-auto grid items-center gap-16 gap-y-9 py-12 text-balance relative z-10",
+			"synthwave-content section-px relative z-10 container mx-auto grid items-center gap-16 gap-y-9 py-12 text-balance",
 			centered ? "place-items-center text-center" : " xl:grid-cols-[1fr_auto]"
 		]}
 		data-enter-container
 	>
 		<div class="grid gap-6" class:max-w-prose={centered}>
-			<h1 class="text-display w-full synthwave-title" data-enter>
+			<h1 class="text-display synthwave-title w-full" data-enter>
 				<span class="block"><AnimateText text={title} /></span>
 				{#if !centered}
 					<span class="text-emphasis-dim block"><AnimateText text={subtitle} /></span>
@@ -119,23 +119,26 @@
 						href={cta.href}
 						size="lg"
 						variant={index % 2 === 0 ? "primary" : "secondary"}
-						class="max-lg:hidden synthwave-button">{cta.label}</Button>
+						class="synthwave-button max-lg:hidden">{cta.label}</Button
+					>
 					<Button
 						href={cta.href}
 						size="md"
 						variant={index % 2 === 0 ? "primary" : "secondary"}
-						class="lg:hidden synthwave-button">{cta.label}</Button>
+						class="synthwave-button lg:hidden">{cta.label}</Button
+					>
 				{/each}
 			</div>
 		{/if}
 	</header>
-
 </div>
 
 <style>
 	.synthwave-hero {
-		@apply bg-white relative overflow-hidden;
 		min-height: 100vh;
+		position: relative;
+		overflow: hidden;
+		background: white;
 		display: flex;
 		align-items: center;
 	}
@@ -310,52 +313,81 @@
 
 	/* Animations */
 	@keyframes grid-move-horizontal {
-		0% { transform: translateY(0); }
-		100% { transform: translateY(50px); }
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(50px);
+		}
 	}
 
 	@keyframes grid-move-vertical {
-		0% { transform: translateX(0); }
-		100% { transform: translateX(50px); }
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(50px);
+		}
 	}
 
 	@keyframes triangle-float {
-		0%, 100% { transform: translateY(0) rotate(0deg); }
-		25% { transform: translateY(-20px) rotate(5deg); }
-		50% { transform: translateY(-10px) rotate(-3deg); }
-		75% { transform: translateY(-15px) rotate(2deg); }
+		0%,
+		100% {
+			transform: translateY(0) rotate(0deg);
+		}
+		25% {
+			transform: translateY(-20px) rotate(5deg);
+		}
+		50% {
+			transform: translateY(-10px) rotate(-3deg);
+		}
+		75% {
+			transform: translateY(-15px) rotate(2deg);
+		}
 	}
 
 	@keyframes circle-pulse {
-		0%, 100% { 
+		0%,
+		100% {
 			transform: scale(1);
 			opacity: 0.5;
 		}
-		50% { 
+		50% {
 			transform: scale(1.2);
 			opacity: 0.8;
 		}
 	}
 
 	@keyframes line-grow {
-		0%, 100% { 
+		0%,
+		100% {
 			transform: scale(1);
 			opacity: 0.3;
 		}
-		50% { 
+		50% {
 			transform: scale(1.5);
 			opacity: 0.7;
 		}
 	}
 
 	@keyframes scanlines-move {
-		0% { transform: translateY(0); }
-		100% { transform: translateY(4px); }
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(4px);
+		}
 	}
 
 	@keyframes title-glow {
-		0% { text-shadow: 0 0 10px currentColor; }
-		100% { text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+		0% {
+			text-shadow: 0 0 10px currentColor;
+		}
+		100% {
+			text-shadow:
+				0 0 20px currentColor,
+				0 0 30px currentColor;
+		}
 	}
 
 	/* Responsive adjustments */
@@ -365,27 +397,27 @@
 			border-right-width: 20px;
 			border-bottom-width: 35px;
 		}
-		
+
 		.triangle-2 {
 			border-left-width: 15px;
 			border-right-width: 15px;
 			border-bottom-width: 26px;
 		}
-		
+
 		.circle-1 {
 			width: 40px;
 			height: 40px;
 		}
-		
+
 		.circle-2 {
 			width: 30px;
 			height: 30px;
 		}
-		
+
 		.line-1 {
 			height: 60px;
 		}
-		
+
 		.line-2 {
 			width: 50px;
 		}
