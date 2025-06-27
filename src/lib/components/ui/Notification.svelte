@@ -71,7 +71,7 @@
 	let typeStyles = $derived(getTypeStyles(type));
 </script>
 
-<div class="notification-card border transition-all duration-300" style="border-radius: var(--radius-lg); padding: 1.5rem; background-color: {typeStyles.background}; border-color: {typeStyles.border}; color: {typeStyles.text};">
+<div class="notification-card border transition-all duration-300 w-full" style="border-radius: var(--radius-lg); padding: 1.5rem; background-color: {typeStyles.background}; border-color: {typeStyles.border}; color: {typeStyles.text};">
 	<div class="flex items-start" style="gap: 1rem;">
 		<!-- Icon -->
 		<div class="flex items-center justify-center text-sm font-semibold" style="height: 2.5rem; width: 2.5rem; border-radius: 50%; background-color: {typeStyles.iconBg}; color: {typeStyles.iconText};">

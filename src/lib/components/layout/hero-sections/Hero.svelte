@@ -158,6 +158,7 @@
 		top: 0;
 		left: 0;
 		right: 0;
+		width: 100%;
 		opacity: 0;
 		/* Responsive transform values */
 		transform: translateY(20px) scale(0.9) rotateX(10deg);
