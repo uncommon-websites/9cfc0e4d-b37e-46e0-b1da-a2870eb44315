@@ -14,6 +14,16 @@
 	title="Design, prototype, and build — together"
 	subtitle="Figma brings your entire team into one collaborative workspace for faster feedback, cleaner handoff, and better products."
 	centered={false}
+	callsToAction={[
+		{
+			href: "/get-started",
+			label: "Get started for free"
+		},
+		{
+			href: "/demo",
+			label: "Request demo"
+		}
+	]}
 	/>
 <LogoScroller 
 	label="Trusted by industry leaders"
