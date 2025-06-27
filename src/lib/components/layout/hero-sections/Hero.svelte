@@ -54,7 +54,7 @@
 		subtitle,
 		imageSrc,
 		callsToAction = [cta],
-		centered = false,
+		centered = true,
 		...rest
 	}: Props = $props();
 </script>
