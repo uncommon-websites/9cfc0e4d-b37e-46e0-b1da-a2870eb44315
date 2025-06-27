@@ -62,6 +62,12 @@
 	<!-- Clean background with subtle gradient -->
 	<div class="hero-bg">
 		<div class="gradient-overlay"></div>
+		<div class="geometric-elements">
+			<div class="floating-circle circle-1"></div>
+			<div class="floating-circle circle-2"></div>
+			<div class="floating-circle circle-3"></div>
+			<div class="grid-pattern"></div>
+		</div>
 	</div>
 
 	<!-- Content -->
@@ -125,9 +131,11 @@
 		min-height: 100vh;
 		position: relative;
 		overflow: hidden;
-		background: white;
+		background: 
+			linear-gradient(135deg, #ffffff 0%, #fafafa 50%, #ffffff 100%);
 		display: flex;
 		align-items: center;
+		box-shadow: inset 0 0 100px rgba(59, 130, 246, 0.02);
 	}
 
 	.hero-bg {
@@ -145,9 +153,124 @@
 		width: 100%;
 		height: 100%;
 		background: 
-			radial-gradient(ellipse at top left, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
-			radial-gradient(ellipse at bottom right, rgba(147, 51, 234, 0.02) 0%, transparent 50%);
-		opacity: 0.6;
+			radial-gradient(ellipse 120% 80% at 20% 10%, rgba(59, 130, 246, 0.08) 0%, transparent 60%),
+			radial-gradient(ellipse 100% 120% at 80% 90%, rgba(147, 51, 234, 0.06) 0%, transparent 60%),
+			radial-gradient(ellipse 80% 100% at 50% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+			linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(147, 51, 234, 0.02) 100%);
+		opacity: 0.9;
+		animation: gradientShift 20s ease-in-out infinite;
+	}
+
+	@keyframes gradientShift {
+		0%, 100% {
+			transform: scale(1) rotate(0deg);
+			opacity: 0.9;
+		}
+		33% {
+			transform: scale(1.05) rotate(1deg);
+			opacity: 0.7;
+		}
+		66% {
+			transform: scale(0.95) rotate(-1deg);
+			opacity: 1;
+		}
+	}
+
+	.geometric-elements {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.floating-circle {
+		position: absolute;
+		border-radius: 50%;
+		background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.05));
+		backdrop-filter: blur(1px);
+	}
+
+	.circle-1 {
+		width: 300px;
+		height: 300px;
+		top: -150px;
+		right: -150px;
+		animation: float1 25s ease-in-out infinite;
+	}
+
+	.circle-2 {
+		width: 200px;
+		height: 200px;
+		bottom: -100px;
+		left: -100px;
+		animation: float2 30s ease-in-out infinite reverse;
+	}
+
+	.circle-3 {
+		width: 150px;
+		height: 150px;
+		top: 40%;
+		right: 10%;
+		animation: float3 20s ease-in-out infinite;
+	}
+
+	.grid-pattern {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: 
+			linear-gradient(rgba(59, 130, 246, 0.02) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px);
+		background-size: 60px 60px;
+		animation: gridMove 40s linear infinite;
+		opacity: 0.3;
+	}
+
+	@keyframes float1 {
+		0%, 100% {
+			transform: translate(0, 0) rotate(0deg) scale(1);
+		}
+		33% {
+			transform: translate(-30px, -20px) rotate(120deg) scale(1.1);
+		}
+		66% {
+			transform: translate(20px, -30px) rotate(240deg) scale(0.9);
+		}
+	}
+
+	@keyframes float2 {
+		0%, 100% {
+			transform: translate(0, 0) rotate(0deg) scale(1);
+		}
+		50% {
+			transform: translate(40px, -40px) rotate(180deg) scale(1.2);
+		}
+	}
+
+	@keyframes float3 {
+		0%, 100% {
+			transform: translate(0, 0) rotate(0deg) scale(1);
+		}
+		25% {
+			transform: translate(-20px, 30px) rotate(90deg) scale(0.8);
+		}
+		75% {
+			transform: translate(30px, -20px) rotate(270deg) scale(1.1);
+		}
+	}
+
+	@keyframes gridMove {
+		0% {
+			transform: translate(0, 0);
+		}
+		100% {
+			transform: translate(60px, 60px);
+		}
 	}
 
 	.hero-content {
@@ -159,6 +282,21 @@
 		font-weight: 600;
 		line-height: 1.1;
 		letter-spacing: -0.02em;
+		background: linear-gradient(135deg, #1e293b 0%, #475569 50%, #1e293b 100%);
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 200% 200%;
+		animation: titleShimmer 8s ease-in-out infinite;
+	}
+
+	@keyframes titleShimmer {
+		0%, 100% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
 	}
 
 	.hero-image-container {
@@ -171,21 +309,64 @@
 	.hero-image {
 		width: 100%;
 		height: auto;
-		border-radius: 16px;
-		transition: transform 0.3s ease;
+		border-radius: 20px;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 		max-width: 600px;
+		box-shadow: 
+			0 25px 50px -12px rgba(0, 0, 0, 0.08),
+			0 0 0 1px rgba(255, 255, 255, 0.05);
+		position: relative;
 	}
 
 	.hero-image:hover {
-		transform: scale(1.02);
+		transform: scale(1.03) translateY(-8px);
+		box-shadow: 
+			0 35px 70px -12px rgba(0, 0, 0, 0.12),
+			0 0 0 1px rgba(255, 255, 255, 0.1);
+	}
+
+	.hero-image-container::before {
+		content: '';
+		position: absolute;
+		top: -20px;
+		left: -20px;
+		right: -20px;
+		bottom: -20px;
+		background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.05));
+		border-radius: 30px;
+		z-index: -1;
+		opacity: 0;
+		transition: opacity 0.4s ease;
+	}
+
+	.hero-image-container:hover::before {
+		opacity: 1;
 	}
 
 	:global(.hero-button) {
-		transition: all 0.2s ease;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+		overflow: hidden;
 	}
 
 	:global(.hero-button:hover) {
-		transform: translateY(-1px);
+		transform: translateY(-2px) scale(1.02);
+		box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+	}
+
+	:global(.hero-button::before) {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+		transition: left 0.5s;
+	}
+
+	:global(.hero-button:hover::before) {
+		left: 100%;
 	}
 
 	/* Responsive adjustments */
